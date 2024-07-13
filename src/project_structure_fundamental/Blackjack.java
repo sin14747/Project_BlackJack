@@ -28,6 +28,7 @@ public class Blackjack {
         setupPlayers();
         initialDeal();
         playerTurn();
+        dealerTurn();
     }
 
     private void setupPlayers() {
@@ -81,8 +82,14 @@ private void playerTurn() {
     }
 
 
-    private void dealerTurn() {
+       private void dealerTurn() {
+            System.out.println("Dealer's turn.");
+        while (dealer.getHandValue() < 17) {
+            dealer.addCard(deck.draw());
+        }
+        System.out.println("Dealer's hand: " + dealer.getHand());
     }
+
     
 
     private void declareWinner() {
