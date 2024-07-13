@@ -8,9 +8,11 @@ import java.util.ArrayList;
 
 
 
+
 /**
  *
  * @author kulde
+ * @modifier Harjot
  */
 
 
@@ -23,11 +25,31 @@ public class Deck {
     public Deck() {
         // Initialize and shuffle deck
         cards = new ArrayList<>();
-        // Add cards to the deck and shuffle
+        initializeDeck();
+        shuffleDeck();
+    }
+    
+     private void initializeDeck() {
+        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
+
+        for (String suit : suits) {
+            for (String rank : ranks) {
+                cards.add(new Card(rank, suit));
+            }
+        }
+    }
+
+    private void shuffleDeck() {
+        Collections.shuffle(cards, new Random());
     }
 
     public Card draw() {
-        // Draw a card from the deck
-        return null;
+        if (!cards.isEmpty()) {
+            return cards.remove(0);
+        } else {
+            System.out.println("The deck is empty!");
+            return null;
     }
+}
 }
