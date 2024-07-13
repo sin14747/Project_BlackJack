@@ -27,6 +27,7 @@ public class Blackjack {
     public void play() {
         setupPlayers();
         initialDeal();
+        playerTurn();
     }
 
     private void setupPlayers() {
@@ -58,9 +59,27 @@ public class Blackjack {
      
     }
 
-    private void playerTurn() {
-        
+private void playerTurn() {
+        for (Player player : players) {
+            while (true) {
+                System.out.println(player.getName() + "'s hand: " + player.getHand());
+                System.out.print("Would you like to hit or stand? (h/s): ");
+                String action = scanner.nextLine();
+                if (action.equalsIgnoreCase("h")) {
+                    player.addCard(deck.draw());
+                    if (player.isBust()) {
+                        System.out.println(player.getName() + " is bust!");
+                        break;
+                    }
+                } else if (action.equalsIgnoreCase("s")) {
+                    break;
+                } else {
+                    System.out.println("Invalid action. Please enter 'h' to hit or 's' to stand.");
+                }
+            }
+        }
     }
+
 
     private void dealerTurn() {
     }
