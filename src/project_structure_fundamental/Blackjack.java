@@ -1,5 +1,8 @@
 package project_structure_fundamental;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 /**
  *
  * @author kulde
@@ -10,33 +13,67 @@ public class Blackjack {
 
     private Deck deck;
     private Player dealer;
-    private Player player;
+    private ArrayList<Player> players;
+    private Scanner scanner;
 
     public Blackjack() {
         // Initialize deck and players
         deck = new Deck();
         dealer = new Player("Dealer");
-        player = new Player("Player");
+        players = new ArrayList<>();
+        scanner = new Scanner(System.in);
     }
 
     public void play() {
-        // Implement the main game loop
+        setupPlayers();
+        initialDeal();
+    }
+
+    private void setupPlayers() {
+        int numPlayers = 0;
+        while (numPlayers < 1 || numPlayers > 4) {
+            System.out.print("Enter the number of players (1-4): ");
+            numPlayers = scanner.nextInt();
+            if (numPlayers < 1 || numPlayers > 4) {
+                System.out.println("Invalid number of players. Please enter a number between 1 and 4.");
+            }
+        }
+        scanner.nextLine();
+
+        for (int i = 0; i < numPlayers; i++) {
+            System.out.print("Enter the name of player " + (i + 1) + ": ");
+            String playerName = scanner.nextLine();
+            players.add(new Player(playerName));
+        }
     }
 
     private void initialDeal() {
-        // Deal initial cards to players and dealer
+          for (Player player : players) {
+            player.addCard(deck.draw());
+            player.addCard(deck.draw());
+        }
+        dealer.addCard(deck.draw());
+        dealer.addCard(deck.draw());
+
+     
     }
 
     private void playerTurn() {
-        // Handle player actions
+        
     }
 
     private void dealerTurn() {
-        // Handle dealer actions
     }
+    
 
     private void declareWinner() {
-        // Determine and declare the winner of the game
+      
+    }
+    
+    private void showScores() {
+    }
+
+    private void showFinalScores() {
     }
 
     public static void main(String[] args) {
