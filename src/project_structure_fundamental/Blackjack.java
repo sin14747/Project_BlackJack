@@ -73,6 +73,7 @@ public class Blackjack {
                         System.out.println(player.getName() + " is bust!");
                         break;
                     }
+                    
                 } else if (action.equalsIgnoreCase("s")) {
                     break;
                 } else {
