@@ -7,7 +7,9 @@ package project_structure_fundamental;
 /**
  *
  * @author kulde
+ * @modifier kulde
  */
+
 
 
 
@@ -25,23 +27,34 @@ public class Hand {
     }
 
     public void addCard(Card card) {
-        // Add a card to the hand
+        cards.add(card);
     }
 
     public int value() {
-        // Calculate the total value of the hand
-        return 0;
+            int totalValue = 0;
+        int aceCount = 0;
+
+        for (Card card : cards) {
+            totalValue += card.value();
+            if (card.value() == 11) {
+                aceCount++;
+            }
+        }
+
+        while (totalValue > 21 && aceCount > 0) {
+            totalValue -= 10;
+            aceCount--;
+        }
+
+        return totalValue;
     }
 
     public boolean isBust() {
-        // Check if the hand is bust
-        return false;
+        return value() > 21;
     }
 
     @Override
     public String toString() {
-        // Return a string representation of the hand
-        return "";
+       return cards.toString();
     }
 }
-
