@@ -6,8 +6,9 @@ import java.util.Scanner;
 /**
  *
  * @author kulde
+ * @modifier harjot 
+ * @modifier kuldeep
  */
-
 
 public class Blackjack {
 
@@ -29,6 +30,9 @@ public class Blackjack {
         initialDeal();
         playerTurn();
         dealerTurn();
+        showScores();
+        declareWinner();
+        showFinalScores();
     }
 
     private void setupPlayers() {
@@ -50,18 +54,16 @@ public class Blackjack {
     }
 
     private void initialDeal() {
-          for (Player player : players) {
+        for (Player player : players) {
             player.addCard(deck.draw());
             player.addCard(deck.draw());
         }
         dealer.addCard(deck.draw());
         dealer.addCard(deck.draw());
-
-     
     }
 
     private void playerTurn() {
-            for (Player player : players) {
+        for (Player player : players) {
             while (true) {
                 System.out.println(player.getName() + "'s hand: " + player.getHand());
                 System.out.print("Would you like to hit or stand? (h/s): ");
@@ -79,7 +81,6 @@ public class Blackjack {
                 }
             }
         }
-        
     }
 
     private void dealerTurn() {
@@ -89,16 +90,57 @@ public class Blackjack {
         }
         System.out.println("Dealer's hand: " + dealer.getHand());
     }
-    
 
     private void declareWinner() {
-      
+        System.out.println("Game Over!");
+        System.out.println("--------------");
+        int dealerScore = dealer.getHandValue();
+        boolean dealerBust = dealer.isBust();
+
+        for (Player player : players) {
+            int playerScore = player.getHandValue();
+            if (player.isBust() || (!dealerBust && dealerScore > playerScore)) {
+                System.out.println(player.getName() + " loses.");
+            } else if (dealerBust || playerScore > dealerScore) {
+                System.out.println(player.getName() + " wins!");
+            } else {
+                System.out.println(player.getName() + " ties with the dealer.");
+            }
+        }
+
+        if (dealerBust) {
+            System.out.println("Dealer is bust and loses to all remaining players.");
+        } else {
+            System.out.println("Dealer's final score: " + dealerScore);
+            for (Player player : players) {
+                int playerScore = player.getHandValue();
+                if (!player.isBust() && dealerScore > playerScore) {
+                    System.out.println("Dealer wins against " + player.getName());
+                } else if (dealerScore == playerScore) {
+                    System.out.println("Dealer ties with " + player.getName());
+                }
+            }
+        }
     }
-    
+
     private void showScores() {
+        System.out.println("\nCurrent Scores:");
+        System.out.println("------------------");
+        for (Player player : players) {
+            System.out.println(player.getName() + "'s score: " + player.getHandValue());
+        }
+        System.out.println("Dealer's score: " + dealer.getHandValue());
+        System.out.println();
     }
 
     private void showFinalScores() {
+        System.out.println("\nFinal Scores:");
+        System.out.println("--------------");
+        for (Player player : players) {
+            System.out.println(player.getName() + "'s final score: " + player.getHandValue());
+        }
+        System.out.println("Dealer's final score: " + dealer.getHandValue());
+        System.out.println();
     }
 
     public static void main(String[] args) {
