@@ -42,5 +42,6 @@ public class Card {
     public String toString() {
         // Return a string representation of the card
         return rank + " of " + suit;
+        
     }
 }
