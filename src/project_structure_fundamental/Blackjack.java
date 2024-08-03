@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
  * @author kulde
  * @modifier harjot 
  * @modifier kuldeep
  */
-
 public class Blackjack {
 
     private Deck deck;
@@ -66,6 +64,7 @@ public class Blackjack {
         for (Player player : players) {
             while (true) {
                 System.out.println(player.getName() + "'s hand: " + player.getHand());
+                System.out.println(player.getName() + "'s current score: " + player.getHandValue());
                 System.out.print("Would you like to hit or stand? (h/s): ");
                 String action = scanner.nextLine();
                 if (action.equalsIgnoreCase("h")) {
@@ -79,6 +78,7 @@ public class Blackjack {
                 } else {
                     System.out.println("Invalid action. Please enter 'h' to hit or 's' to stand.");
                 }
+                System.out.println(player.getName() + "'s current score: " + player.getHandValue());
             }
         }
     }
@@ -89,6 +89,7 @@ public class Blackjack {
             dealer.addCard(deck.draw());
         }
         System.out.println("Dealer's hand: " + dealer.getHand());
+        System.out.println("Dealer's current score: " + dealer.getHandValue());
     }
 
     private void declareWinner() {
