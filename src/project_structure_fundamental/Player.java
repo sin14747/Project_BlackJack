@@ -34,17 +34,15 @@ public class Player {
     }
 
     public void addCard(Card card) {
-        // Add a card to the player's hand
+       hand.addCard(card);
     }
 
     public int getHandValue() {
-        // Get the total value of the player's hand
-        return 0;
+         return hand.value();
     }
 
     public boolean isBust() {
-        // Check if the player's hand is bust
-        return false;
+         return hand.isBust();
     }
 
     public void play() {
