@@ -4,57 +4,55 @@
  */
 package project_structure_fundamental;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+
+
+
+
 /**
  *
  * @author kulde
- * @modifier kulde
+ * @modifier Harjot
  */
 
 
 
 
 
-import java.util.ArrayList;
-
-
-
-public class Hand {
+public class Deck {
     private ArrayList<Card> cards;
 
-    public Hand() {
-        // Initialize hand
+    public Deck() {
+        // Initialize and shuffle deck
         cards = new ArrayList<>();
+        initializeDeck();
+        shuffleDeck();
     }
+    
+     private void initializeDeck() {
+        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
 
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
-    public int value() {
-            int totalValue = 0;
-        int aceCount = 0;
-
-        for (Card card : cards) {
-            totalValue += card.value();
-            if (card.value() == 11) {
-                aceCount++;
+        for (String suit : suits) {
+            for (String rank : ranks) {
+                cards.add(new Card(rank, suit));
             }
         }
-
-        while (totalValue > 21 && aceCount > 0) {
-            totalValue -= 10;
-            aceCount--;
-        }
-
-        return totalValue;
     }
 
-    public boolean isBust() {
-        return value() > 21;
+    private void shuffleDeck() {
+        Collections.shuffle(cards, new Random());
     }
 
-    @Override
-    public String toString() {
-       return cards.toString();
+    public Card draw() {
+        if (!cards.isEmpty()) {
+            return cards.remove(0);
+        } else {
+            System.out.println("The deck is empty!");
+            return null;
+            
     }
+}
 }
